@@ -13,7 +13,7 @@ const ArchiveButton = ({ id, onArchive }) => {
 };
 
 ArchiveButton.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   onArchive: PropTypes.func.isRequired,
 };
 

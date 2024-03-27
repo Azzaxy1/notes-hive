@@ -1,11 +1,12 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import PropTypes from "prop-types";
 
 import NotesItems from "./NotesItems";
 
-const NotesList = ({ getInitialData, onDelete, onArchive }) => {
-  const activeNotes = getInitialData.filter((note) => !note.archived);
-  const archivedNotes = getInitialData.filter((note) => note.archived);
+const NotesList = ({ notes, onDelete, onArchive }) => {
+  const activeNotes = notes.filter((note) => !note.archived);
+  const archivedNotes = notes.filter((note) => note.archived);
 
   return (
     <div className="flex flex-col items-center justify-center pt-10 md:items-start md:gap-2 md:flex-row">
@@ -48,9 +49,9 @@ const NotesList = ({ getInitialData, onDelete, onArchive }) => {
 };
 
 NotesList.propTypes = {
-  getInitialData: PropTypes.arrayOf(
+  notes: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       body: PropTypes.string.isRequired,
       createdAt: PropTypes.oneOfType([

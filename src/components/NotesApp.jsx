@@ -4,14 +4,16 @@ import NotesAdd from "./NotesAdd";
 import NotesSearch from "./NotesSearch";
 import reactIcon from "../assets/react.png";
 
-import getInitialData from "../utils/index";
+import { getAllNotes } from "../utils/local-data";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 export class NotesApp extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      notes: getInitialData(),
+      notes: getAllNotes(),
       search: "",
       archivedNotes: [],
     };
@@ -28,7 +30,7 @@ export class NotesApp extends React.Component {
         notes: [
           ...prevState.notes,
           {
-            id: +new Date(),
+            id: `${+new Date()}`,
             title: title,
             body: body,
             createdAt: new Date().toISOString(),
@@ -68,36 +70,37 @@ export class NotesApp extends React.Component {
     );
 
     return (
-      <main className="relative py-20 font-sans bg-primary">
-        <div className="absolute top-5 right-3 md:right-10 ">
-          <img
-            src={reactIcon}
-            alt="react icon"
-            width={200}
-            className="w-20 md:w-32"
-          />
-        </div>
-        <div className="absolute bottom-5 left-3 md:left-10 ">
-          <img
-            src={reactIcon}
-            alt="react icon"
-            width={200}
-            className="w-20 md:w-32"
-          />
-        </div>
-        <section className="min-h-screen px-8 md:p-5 m-auto border-dashed rounded-md border-3 w-[60%]">
-          <h1 className="mt-4 text-4xl text-center md:text-5xl text-secondary">
-            Notes App
-          </h1>
-          <NotesAdd addNotes={this.onAddNotesHandler} />
-          <NotesSearch onSearch={this.onSearchHandler} />
-          <NotesList
-            getInitialData={filterSearch}
-            onDelete={this.onDeleteHandler}
-            onArchive={this.onArchiveHandler}
-          />
-        </section>
-      </main>
+      <>
+        <Navbar />
+        <main className="relative font-sans py-28 bg-primary">
+          <div className="absolute top-5 right-3 md:right-10 ">
+            <img
+              src={reactIcon}
+              alt="react icon"
+              width={200}
+              className="w-20 md:w-32"
+            />
+          </div>
+          <div className="absolute bottom-5 left-3 md:left-10 ">
+            <img
+              src={reactIcon}
+              alt="react icon"
+              width={200}
+              className="w-20 md:w-32"
+            />
+          </div>
+          <section className="min-h-screen px-8 md:p-5 m-auto border-dashed rounded-md border-3 w-[60%]">
+            <NotesAdd addNotes={this.onAddNotesHandler} />
+            <NotesSearch onSearch={this.onSearchHandler} />
+            <NotesList
+              notes={filterSearch}
+              onDelete={this.onDeleteHandler}
+              onArchive={this.onArchiveHandler}
+            />
+          </section>
+        </main>
+        <Footer />
+      </>
     );
   }
 }

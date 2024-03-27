@@ -13,7 +13,7 @@ export class NotesAdd extends React.Component {
     };
 
     this.onTitleChangeHandler = this.onTitleChangeHandler.bind(this);
-    this.onNotesChangeHandler = this.onNotesChangeHandler.bind(this);
+    this.onNotesInputHandler = this.onNotesInputHandler.bind(this);
     this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
     this.onCheckedChangeHandler = this.onCheckedChangeHandler.bind(this);
   }
@@ -29,10 +29,10 @@ export class NotesAdd extends React.Component {
     }
   }
 
-  onNotesChangeHandler(e) {
+  onNotesInputHandler(e) {
     this.setState(() => {
       return {
-        body: e.target.value,
+        body: e.target.innerHTML,
       };
     });
   }
@@ -65,13 +65,12 @@ export class NotesAdd extends React.Component {
           onChange={this.onTitleChangeHandler}
           required
         />
-        <textarea
-          className="h-20 px-2 py-2 mb-3 text-base border-none rounded-sm outline-secondary"
-          type="text"
-          placeholder="Redux toolkit is..."
+        <div
+          className="h-20 px-2 py-2 mb-3 text-base bg-white border-none rounded-sm placeholder:text-black outline-secondary"
+          data-placeholder="Redux is ...."
+          contentEditable
           value={this.state.body}
-          onChange={this.onNotesChangeHandler}
-          required
+          onInput={this.onNotesInputHandler}
         />
         <div className="flex items-center gap-2 pl-2 mb-2">
           <label className="text-lg">Archive</label>
