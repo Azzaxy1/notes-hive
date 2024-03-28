@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { archiveNote, getAllNotes } from "../utils/local-data";
+import { archiveNote, deleteNote, getAllNotes } from "../utils/local-data";
 import NotesList from "../components/NotesList";
 import NotesSearch from "../components/NotesSearch";
 
@@ -35,6 +35,7 @@ export class HomePage extends React.Component {
   }
 
   onDeleteHandler(id) {
+    deleteNote(id);
     const notes = this.state.notes.filter((note) => note.id !== id);
 
     this.setState({ notes });
@@ -75,6 +76,7 @@ export class HomePage extends React.Component {
     return (
       <main className="min-h-screen py-28">
         <section className=" px-8 md:p-5 m-auto border-dashed rounded-md border-3 w-[60%]">
+          <h1 className="pb-3 text-3xl text-center">Active Notes</h1>
           <NotesSearch
             keyword={this.state.keyword}
             keywordChange={this.onSearchHandler}

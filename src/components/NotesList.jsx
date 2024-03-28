@@ -12,9 +12,6 @@ const NotesList = ({ notes, onDelete, onArchive, isArchived }) => {
   return (
     <div className="flex flex-col items-center justify-center pt-10 md:items-start md:gap-2 md:flex-row">
       <div className="w-full px-4 my-3 rounded-lg pb-7 bg-primary">
-        <h1 className="pb-3 text-3xl text-center">
-          {isArchived ? "Archive Notes" : "Active Notes"}
-        </h1>
         {filteredNotes.length ? (
           filteredNotes.map((note) => {
             return (

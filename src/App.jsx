@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import DetailNotePages from "./pages/DetailNotePage";
 import AddNotePage from "./pages/AddNotePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
-import WrapperArchivedPage from "./pages/ArchivePages.jsx";
+import WrapperArchivedPage from "./pages/ArchivedPage.jsx";
 
 function App() {
   return (

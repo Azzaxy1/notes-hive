@@ -49,7 +49,7 @@ export class NotesAdd extends React.Component {
     this.props.addNotes({
       title,
       body,
-      archived, // Menggunakan nilai archived dari state
+      archived,
     });
   }
 

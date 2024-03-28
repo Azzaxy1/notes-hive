@@ -1,21 +1,17 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getNote } from "../utils/local-data";
 import { showFormattedDate } from "../utils/index";
-import { CircleArrowLeft } from "lucide-react";
 
 const DetailNotePages = () => {
   const { id } = useParams();
   const note = getNote(id);
 
   return (
-    <main className="relative flex flex-col items-center justify-center min-h-screen px-4 mx-auto font-sans bg-primary">
+    <main className="flex flex-col items-center justify-center min-h-screen px-4 mx-auto font-sans bg-primary">
       <div className="border-dashed  rounded-md border-3 w-[70%] flex py-3 md:py-10 border-slate-900 flex-col items-center justify-center ">
         <header className=" w-[70%] text-center">
-          <Link to="/">
-            <CircleArrowLeft className="absolute left-10 md:left-40 top-32 text-secondary size-8 md:size-11" />
-          </Link>
           <h1 className="mb-4 text-3xl font-semibold">Note Detail</h1>
         </header>
         <section className="w-2/3 text-white rounded-e-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-secondary p-7">
