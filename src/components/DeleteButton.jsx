@@ -6,7 +6,10 @@ import { Trash2 } from "lucide-react";
 const DeleteButton = ({ id, onDelete }) => {
   return (
     <>
-      <Trash2 className="cursor-pointer" onClick={() => onDelete(id)} />
+      <Trash2
+        className="text-red-400 cursor-pointer size-7 hover:text-red-500 "
+        onClick={() => onDelete(id)}
+      />
     </>
   );
 };
