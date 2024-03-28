@@ -66,7 +66,7 @@ export class NotesAdd extends React.Component {
           required
         />
         <div
-          className="h-20 px-2 py-2 mb-3 text-base bg-white border-none rounded-sm text-slate-800 placeholder:text-black outline-secondary"
+          className="h-40 px-2 py-2 mb-3 overflow-auto text-base bg-white border-none rounded-sm text-slate-800 placeholder:text-black outline-secondary"
           data-placeholder="Redux is ...."
           contentEditable
           value={this.state.body}

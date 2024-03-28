@@ -72,22 +72,20 @@ export class HomePage extends React.Component {
     );
 
     return (
-      <>
-        <main className="min-h-screen py-28">
-          <section className=" px-8 md:p-5 m-auto border-dashed rounded-md border-3 w-[60%]">
-            {/* <ArchivePages /> */}
-            <NotesSearch
-              keyword={this.state.keyword}
-              keywordChange={this.onSearchHandler}
-            />
-            <NotesList
-              notes={filterSearch}
-              onDelete={this.onDeleteHandler}
-              onArchive={this.onArchiveHandler}
-            />
-          </section>
-        </main>
-      </>
+      <main className="min-h-screen py-28">
+        <section className=" px-8 md:p-5 m-auto border-dashed rounded-md border-3 w-[60%]">
+          {/* <ArchivePages /> */}
+          <NotesSearch
+            keyword={this.state.keyword}
+            keywordChange={this.onSearchHandler}
+          />
+          <NotesList
+            notes={filterSearch}
+            onDelete={this.onDeleteHandler}
+            onArchive={this.onArchiveHandler}
+          />
+        </section>
+      </main>
     );
   }
 }
