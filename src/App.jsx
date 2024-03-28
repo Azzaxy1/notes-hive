@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
 import reactIcon from "./assets/react.png";
 import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar";
@@ -31,10 +33,19 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/notes/:id" element={<DetailNotePages />} />
-          <Route path="/add" element={<AddNotePage />} />
+          <Route path="/notes/new" element={<AddNotePage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              fontWeight: "bold",
+              fontFamily: "sans-serif",
+            },
+          }}
+        />
       </BrowserRouter>
     </main>
   );

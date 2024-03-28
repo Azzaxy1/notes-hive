@@ -1,10 +1,12 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 // import NotesAdd from "./NotesAdd";
 // import reactIcon from "../assets/react.png";
 
 import { getAllNotes } from "../utils/local-data";
 import NotesList from "../components/NotesList";
 import NotesSearch from "../components/NotesSearch";
+// import ArchivePages from "./ArchivePages";
 
 export class HomePage extends React.Component {
   constructor(props) {
@@ -43,6 +45,8 @@ export class HomePage extends React.Component {
     const notes = this.state.notes.filter((note) => note.id !== id);
 
     this.setState({ notes });
+
+    toast.success("Data successfully deleted");
   }
 
   onSearchHandler(e) {
@@ -60,6 +64,8 @@ export class HomePage extends React.Component {
         return note;
       }),
     }));
+
+    toast.success("Data successfully updated");
   }
 
   render() {
@@ -72,6 +78,7 @@ export class HomePage extends React.Component {
         <main className="min-h-screen py-28">
           <section className=" px-8 md:p-5 m-auto border-dashed rounded-md border-3 w-[60%]">
             {/* <NotesAdd addNotes={this.onAddNotesHandler} /> */}
+            {/* <ArchivePages /> */}
             <NotesSearch onSearch={this.onSearchHandler} />
             <NotesList
               notes={filterSearch}
