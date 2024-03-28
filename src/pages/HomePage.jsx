@@ -1,12 +1,24 @@
 import React from "react";
 import { toast } from "react-hot-toast";
-// import NotesAdd from "./NotesAdd";
-// import reactIcon from "../assets/react.png";
+import { useSearchParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import { getAllNotes } from "../utils/local-data";
 import NotesList from "../components/NotesList";
 import NotesSearch from "../components/NotesSearch";
 // import ArchivePages from "./ArchivePages";
+
+const WrapperHomePage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const title = searchParams.get("title");
+
+  const changeSearchParams = (title) => {
+    setSearchParams({ title });
+  };
+
+  return <HomePage defaultKeyword={title} keywordChange={changeSearchParams} />;
+};
 
 export class HomePage extends React.Component {
   constructor(props) {
@@ -14,32 +26,14 @@ export class HomePage extends React.Component {
 
     this.state = {
       notes: getAllNotes(),
-      search: "",
+      keyword: props.defaultKeyword || "",
       archivedNotes: [],
     };
 
-    // this.onAddNotesHandler = this.onAddNotesHandler.bind(this);
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
   }
-
-  // onAddNotesHandler({ title, body, archived }) {
-  //   this.setState((prevState) => {
-  //     return {
-  //       notes: [
-  //         ...prevState.notes,
-  //         {
-  //           id: `${+new Date()}`,
-  //           title: title,
-  //           body: body,
-  //           createdAt: new Date().toISOString(),
-  //           archived: archived,
-  //         },
-  //       ],
-  //     };
-  //   });
-  // }
 
   onDeleteHandler(id) {
     const notes = this.state.notes.filter((note) => note.id !== id);
@@ -49,10 +43,14 @@ export class HomePage extends React.Component {
     toast.success("Data successfully deleted");
   }
 
-  onSearchHandler(e) {
-    this.setState({
-      search: e,
+  onSearchHandler(keyword) {
+    this.setState(() => {
+      return {
+        keyword,
+      };
     });
+
+    this.props.keywordChange(keyword);
   }
 
   onArchiveHandler(id) {
@@ -70,16 +68,18 @@ export class HomePage extends React.Component {
 
   render() {
     const filterSearch = this.state.notes.filter((note) =>
-      note.title.toLowerCase().includes(this.state.search.toLowerCase())
+      note.title.toLowerCase().includes(this.state.keyword.toLowerCase())
     );
 
     return (
       <>
         <main className="min-h-screen py-28">
           <section className=" px-8 md:p-5 m-auto border-dashed rounded-md border-3 w-[60%]">
-            {/* <NotesAdd addNotes={this.onAddNotesHandler} /> */}
             {/* <ArchivePages /> */}
-            <NotesSearch onSearch={this.onSearchHandler} />
+            <NotesSearch
+              keyword={this.state.keyword}
+              keywordChange={this.onSearchHandler}
+            />
             <NotesList
               notes={filterSearch}
               onDelete={this.onDeleteHandler}
@@ -92,4 +92,9 @@ export class HomePage extends React.Component {
   }
 }
 
-export default HomePage;
+HomePage.propTypes = {
+  defaultKeyword: PropTypes.string,
+  keywordChange: PropTypes.func.isRequired,
+};
+
+export default WrapperHomePage;
