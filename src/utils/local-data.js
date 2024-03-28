@@ -62,7 +62,7 @@ function getArchivedNotes() {
   return archivedNotes;
 }
 
-function addNote({ title, body }) {
+function addNote({ title, body, archived }) {
   notes = [
     ...notes,
     {
@@ -70,7 +70,7 @@ function addNote({ title, body }) {
       title: title || "(untitled)",
       body,
       createdAt: new Date().toISOString(),
-      archived: false,
+      archived: archived,
     },
   ];
 }

@@ -38,16 +38,19 @@ export class NotesAdd extends React.Component {
   }
 
   onCheckedChangeHandler(e) {
-    this.setState(() => {
-      return {
-        archived: e.target.checked,
-      };
+    this.setState({
+      archived: e.target.checked,
     });
   }
 
   onSubmitEventHandler(e) {
     e.preventDefault();
-    this.props.addNotes(this.state);
+    const { title, body, archived } = this.state;
+    this.props.addNotes({
+      title,
+      body,
+      archived, // Menggunakan nilai archived dari state
+    });
   }
 
   render() {

@@ -7,10 +7,11 @@ import NotesAdd from "../components/NotesAdd";
 const AddNotePage = () => {
   const navigate = useNavigate();
 
-  const onAddNote = ({ title, body }) => {
+  const onAddNote = ({ title, body, archived }) => {
     addNote({
       title,
       body,
+      archived,
     });
     navigate("/");
   };
