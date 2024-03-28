@@ -53,7 +53,7 @@ export class NotesAdd extends React.Component {
   render() {
     return (
       <form onSubmit={this.onSubmitEventHandler} className="flex flex-col">
-        <h2 className="text-3xl">Create Notes</h2>
+        <h2 className="text-xl md:text-3xl">Create Notes</h2>
         <h3 className="py-2 pr-3 text-end">
           Limit caracter : {this.state.remainingChars}
         </h3>
@@ -66,7 +66,7 @@ export class NotesAdd extends React.Component {
           required
         />
         <div
-          className="h-20 px-2 py-2 mb-3 text-base bg-white border-none rounded-sm placeholder:text-black outline-secondary"
+          className="h-20 px-2 py-2 mb-3 text-base bg-white border-none rounded-sm text-slate-800 placeholder:text-black outline-secondary"
           data-placeholder="Redux is ...."
           contentEditable
           value={this.state.body}
@@ -82,7 +82,7 @@ export class NotesAdd extends React.Component {
         </div>
         <button
           type="submit"
-          className="py-2 text-lg bg-[#1a80af] hover:bg-[#156083] text-white border-none rounded-lg cursor-pointer"
+          className="py-2 text-lg bg-[#1a80af] hover:bg-[#378eb6] text-white border-none rounded-lg cursor-pointer"
         >
           Add Note
         </button>

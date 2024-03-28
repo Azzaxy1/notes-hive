@@ -1,15 +1,42 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NotesApp from "./components/NotesApp";
+import reactIcon from "./assets/react.png";
 import ErrorPage from "./pages/ErrorPage";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import DetailNotePages from "./pages/DetailNotePage";
+import AddNotePage from "./pages/AddNotePage.jsx";
+import HomePage from "./pages/HomePage.jsx";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<NotesApp />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </BrowserRouter>
+    <main className="relative min-h-screen font-sans bg-primary">
+      <div className="absolute top-5 right-3 md:right-10 ">
+        <img
+          src={reactIcon}
+          alt="react icon"
+          width={200}
+          className="w-20 md:w-32"
+        />
+      </div>
+      <div className="absolute bottom-5 left-3 md:left-10 ">
+        <img
+          src={reactIcon}
+          alt="react icon"
+          width={200}
+          className="w-20 md:w-32"
+        />
+      </div>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/notes/:id" element={<DetailNotePages />} />
+          <Route path="/add" element={<AddNotePage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </main>
   );
 }
 

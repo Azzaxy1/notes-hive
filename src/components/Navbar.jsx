@@ -22,10 +22,10 @@ const Navbar = () => {
           </li>
           <li>
             <Link
-              to="/archives"
+              to="/add"
               className="text-base text-white no-underline md:text-xl hover:text-primary hover:underline hover:underline-offset-8"
             >
-              Archive
+              Add Note
             </Link>
           </li>
         </ul>

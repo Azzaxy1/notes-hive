@@ -16,7 +16,7 @@ export class NotesSearch extends React.Component {
   render() {
     return (
       <div className="text-center">
-        <form className="m-auto mt-5 ">
+        <form className="m-auto mt-5">
           <input
             type="text"
             placeholder="Search..."

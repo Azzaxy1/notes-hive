@@ -17,7 +17,9 @@ const NotesItems = ({ id, title, body, createdAt, onDelete, onArchive }) => {
             {title}
           </Link>
         </h3>
-        <p className="pt-1 pb-3 font-thin">{showFormattedDate(createdAt)}</p>
+        <p className="pt-1 pb-3 font-thin text-gray-400">
+          {showFormattedDate(createdAt)}
+        </p>
         <p className="font-medium">{parser(body)}</p>
         <div className="flex justify-end gap-2 pt-4 ">
           <ArchiveButton id={id} onArchive={onArchive} />
