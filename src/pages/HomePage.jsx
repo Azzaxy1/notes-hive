@@ -3,10 +3,9 @@ import { toast } from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { getAllNotes } from "../utils/local-data";
+import { archiveNote, getAllNotes } from "../utils/local-data";
 import NotesList from "../components/NotesList";
 import NotesSearch from "../components/NotesSearch";
-// import ArchivePages from "./ArchivePages";
 
 const WrapperHomePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -54,9 +53,11 @@ export class HomePage extends React.Component {
   }
 
   onArchiveHandler(id) {
-    this.setState((prevNote) => ({
-      notes: prevNote.notes.map((note) => {
-        if (note.id == id) {
+    archiveNote(id);
+
+    this.setState((prevState) => ({
+      notes: prevState.notes.map((note) => {
+        if (note.id === id) {
           return { ...note, archived: !note.archived };
         }
         return note;
@@ -74,7 +75,6 @@ export class HomePage extends React.Component {
     return (
       <main className="min-h-screen py-28">
         <section className=" px-8 md:p-5 m-auto border-dashed rounded-md border-3 w-[60%]">
-          {/* <ArchivePages /> */}
           <NotesSearch
             keyword={this.state.keyword}
             keywordChange={this.onSearchHandler}
@@ -83,6 +83,7 @@ export class HomePage extends React.Component {
             notes={filterSearch}
             onDelete={this.onDeleteHandler}
             onArchive={this.onArchiveHandler}
+            isArchived={false}
           />
         </section>
       </main>

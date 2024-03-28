@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -13,20 +13,28 @@ const Navbar = () => {
       <nav>
         <ul className="flex items-center justify-center gap-5 list-none">
           <li>
-            <Link
+            <NavLink
               to="/"
               className="text-base text-white no-underline md:text-xl hover:text-primary hover:underline hover:underline-offset-8"
             >
               Home
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
+              to="/notes/archived"
+              className="text-base text-white no-underline md:text-xl hover:text-primary hover:underline hover:underline-offset-8"
+            >
+              Archived Note
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/notes/new"
               className="text-base text-white no-underline md:text-xl hover:text-primary hover:underline hover:underline-offset-8"
             >
               New Note
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </nav>

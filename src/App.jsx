@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import DetailNotePages from "./pages/DetailNotePage";
 import AddNotePage from "./pages/AddNotePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import WrapperArchivedPage from "./pages/ArchivePages.jsx";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/notes/:id" element={<DetailNotePages />} />
+          <Route path="/notes/archived" element={<WrapperArchivedPage />} />
           <Route path="/notes/new" element={<AddNotePage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
