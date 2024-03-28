@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
@@ -40,7 +41,7 @@ function App() {
         </Routes>
         <Footer />
         <Toaster
-          position="top-center"
+          position="bottom-right"
           toastOptions={{
             style: {
               fontWeight: "bold",

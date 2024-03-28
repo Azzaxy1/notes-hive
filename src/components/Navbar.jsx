@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
@@ -11,7 +10,7 @@ const Navbar = () => {
         </Link>
       </h1>
       <nav>
-        <ul className="flex items-center justify-center gap-5 list-none">
+        <ul className="flex items-center justify-center gap-2 list-none md:gap-5">
           <li>
             <NavLink
               to="/"

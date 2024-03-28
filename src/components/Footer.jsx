@@ -7,7 +7,7 @@ const Footer = () => {
         © 2024, Made with 🔥🌾 by{" "}
         <Link
           to="https://github.com/Azzaxy1"
-          className="font-medium text-white hover:text-slate-800"
+          className="font-medium text-white hover:text-slate-300"
         >
           Abdurrohman Azis
         </Link>

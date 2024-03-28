@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import toast from "react-hot-toast";
 
 export class NotesAdd extends React.Component {
   constructor(props) {
@@ -51,6 +52,8 @@ export class NotesAdd extends React.Component {
       body,
       archived,
     });
+
+    toast.success("Data successfully added!");
   }
 
   render() {
