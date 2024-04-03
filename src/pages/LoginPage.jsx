@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import LoginInput from "../components/LoginInput";
 import { login } from "../utils/network-data";
+import toast from "react-hot-toast";
 
 const LoginPage = ({ loginSuccess }) => {
   const onLoginHandler = async ({ email, password }) => {
     const { error, data } = await login({ email, password });
     if (!error) {
       loginSuccess(data);
+      toast.success("Login success");
     }
   };
 

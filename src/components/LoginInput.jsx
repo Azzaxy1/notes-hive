@@ -2,7 +2,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useInput from "../hooks/useInput";
-import toast from "react-hot-toast";
 
 const LoginInput = ({ login }) => {
   const [email, onEmailChange] = useInput("");
@@ -11,8 +10,6 @@ const LoginInput = ({ login }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     login({ email, password });
-
-    toast.success("Login success");
   };
 
   return (

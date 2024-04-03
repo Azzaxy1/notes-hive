@@ -3,6 +3,7 @@ import React from "react";
 import { register } from "../utils/network-data";
 import RegisterInput from "../components/RegisterInput";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const RegisterPage = () => {
     const { error } = await register(user);
     if (!error) {
       navigate("/");
+      toast.success("Register success, please login");
     }
   };
 

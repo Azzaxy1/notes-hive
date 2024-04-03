@@ -17,7 +17,6 @@ const RegisterInput = ({ register }) => {
       toast.error("Password and Confirm Password must be same");
     } else {
       register({ name, email, password });
-      toast.success("Register success, please login");
     }
   };
 
