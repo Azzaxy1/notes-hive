@@ -76,26 +76,26 @@ function addNote({ title, body, archived }) {
 }
 
 function deleteNote(id) {
-  notes = notes.filter((note) => note.id !== id);
+  return (notes = notes.filter((note) => note.id !== id));
 }
 
 function archiveNote(id) {
-  notes = notes.map((note) => {
+  return (notes = notes.map((note) => {
     if (note.id === id) {
       return { ...note, archived: true };
     }
     return note;
-  });
+  }));
 }
 
 function unarchiveNote(id) {
-  notes = notes.map((note) => {
+  return (notes = notes.map((note) => {
     if (note.id === id) {
       return { ...note, archived: false };
     }
 
     return note;
-  });
+  }));
 }
 
 function editNote({ id, title, body }) {

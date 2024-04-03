@@ -1,4 +1,5 @@
-import React from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import parser from "html-react-parser";
@@ -6,13 +7,27 @@ import parser from "html-react-parser";
 import { showFormattedDate } from "../utils/index";
 import ArchiveButton from "./ArchiveButton";
 import DeleteButton from "./DeleteButton";
+import ThemeContext from "../contexts/ThemeContext";
 
 const NotesItems = ({ id, title, body, createdAt, onDelete, onArchive }) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <div className="flex flex-col gap-6 text-white">
-      <article className="px-5 py-4 mb-3 bg-secondary rounded-e-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+    <div
+      className={`flex flex-col gap-6 ${
+        theme === "light" ? "text-lightMode" : "text-darkMode"
+      } pt-7`}
+    >
+      <article
+        className={`px-5 py-4 mb-3 ${
+          theme === "light" ? "bg-darkMode" : "bg-lightMode"
+        } rounded-e-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]`}
+      >
         <h3 className="mb-1 text-xl font-semibold underline-offset-4">
-          <Link to={`/notes/${id}`} className="text-white">
+          <Link
+            to={`/notes/${id}`}
+            className={theme === "light" ? "text-lightMode" : "text-darkMode"}
+          >
             {title}
           </Link>
         </h3>

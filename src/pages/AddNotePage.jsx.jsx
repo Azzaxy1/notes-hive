@@ -1,10 +1,15 @@
-import React from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { addNote } from "../utils/local-data";
 import NotesAdd from "../components/NotesAdd";
+import LocaleContext from "../contexts/LocaleContext";
+import ThemeContext from "../contexts/ThemeContext";
 
 const AddNotePage = () => {
+  const { locale } = useContext(LocaleContext);
+  const { theme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const onAddNote = ({ title, body, archived }) => {
@@ -17,14 +22,32 @@ const AddNotePage = () => {
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen py-12 mx-auto font-sans text-white lg:py-20 bg-primary">
-      <div className="flex flex-col items-center w-[60%] justify-center py-3 border-dashed rounded-md border-3 md:py-6 border-slate-900 ">
+    <main
+      className={`flex items-center justify-center min-h-screen py-12 mx-auto font-sans lg:py-20 ${
+        theme === "light"
+          ? "text-lightMode  bg-lightMode"
+          : "text-darkMode bg-darkMode"
+      }`}
+    >
+      <div
+        className={`flex flex-col items-center w-[60%] justify-center py-3 border-dashed rounded-md border-3 md:py-6   ${
+          theme === "light" ? "border-darkMode" : "border-lightMode"
+        }`}
+      >
         <header>
-          <h1 className="mb-4 text-3xl font-semibold text-slate-800">
-            New Note
+          <h1
+            className={`mb-4 text-3xl font-semibold ${
+              theme === "light" ? "text-darkMode" : "text-lightMode"
+            }`}
+          >
+            {locale === "id" ? "Catatan Baru" : "New Note"}
           </h1>
         </header>
-        <section className="w-[85%] rounded-e-xl  shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-secondary p-7">
+        <section
+          className={`w-[85%] rounded-e-xl  shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-7 ${
+            theme === "light" ? "bg-darkMode" : "bg-lightMode"
+          }`}
+        >
           <NotesAdd addNotes={onAddNote} />
         </section>
       </div>

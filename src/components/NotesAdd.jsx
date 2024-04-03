@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import toast from "react-hot-toast";
+import ThemeContext from "../contexts/ThemeContext";
+import { LocaleConsumer } from "../contexts/LocaleContext";
 
 export class NotesAdd extends React.Component {
+  static contextType = ThemeContext;
+
   constructor(props) {
     super(props);
 
@@ -58,41 +62,57 @@ export class NotesAdd extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmitEventHandler} className="flex flex-col">
-        <h2 className="text-xl md:text-3xl">Create Notes</h2>
-        <h3 className="py-2 pr-3 text-end">
-          Limit caracter : {this.state.remainingChars}
-        </h3>
-        <input
-          className="px-2 py-3 mb-3 text-base border-none rounded-sm outline-secondary"
-          type="text"
-          placeholder="Redux Toolkit"
-          value={this.state.title}
-          onChange={this.onTitleChangeHandler}
-          required
-        />
-        <div
-          className="h-40 px-2 py-2 mb-3 overflow-auto text-base bg-white border-none rounded-sm text-slate-800 placeholder:text-black outline-secondary"
-          data-placeholder="Redux is ...."
-          contentEditable
-          value={this.state.body}
-          onInput={this.onNotesInputHandler}
-        />
-        <div className="flex items-center gap-2 pl-2 mb-2">
-          <label className="text-lg">Archive</label>
-          <input
-            type="checkbox"
-            checked={this.state.archived}
-            onChange={this.onCheckedChangeHandler}
-          />
-        </div>
-        <button
-          type="submit"
-          className="py-2 text-lg bg-[#1a80af] hover:bg-[#378eb6] text-white border-none rounded-lg cursor-pointer"
-        >
-          Add Note
-        </button>
-      </form>
+      <LocaleConsumer>
+        {({ locale }) => (
+          <form onSubmit={this.onSubmitEventHandler} className="flex flex-col">
+            <h2 className="text-xl md:text-2xl">
+              {locale === "id" ? "Tambahkan Catatan" : "Add Note"}
+            </h2>
+            <h3 className="py-2 pr-3 text-end">
+              {locale === "id" ? "Sisa Karakter " : "Remaining Chars "} :{" "}
+              {this.state.remainingChars}
+            </h3>
+            <input
+              className={`px-2 py-3 mb-3 text-base rounded-sm ${
+                this.context === "light"
+                  ? "text-lightMode border-lightMode"
+                  : "text-darkMode border-darkMode"
+              } outline-secondary`}
+              type="text"
+              placeholder="Redux Toolkit"
+              value={this.state.title}
+              onChange={this.onTitleChangeHandler}
+              required
+            />
+            <div
+              className={`h-40 px-2 py-2 mb-3 overflow-auto text-base  rounded-sm ${
+                this.context === "light"
+                  ? "text-lightMode bg-red-100 border-lightMode"
+                  : "text-darkMode bg-lightMode border-darkMode"
+              } placeholder:text-black outline-secondary`}
+              contentEditable
+              value={this.state.body}
+              onInput={this.onNotesInputHandler}
+            />
+            <div className="flex items-center gap-2 pl-2 mb-2">
+              <label className="text-lg">
+                {locale === "id" ? "Arsip" : "Archived"}
+              </label>
+              <input
+                type="checkbox"
+                checked={this.state.archived}
+                onChange={this.onCheckedChangeHandler}
+              />
+            </div>
+            <button
+              type="submit"
+              className="py-2 text-lg bg-[#1a80af] hover:bg-[#378eb6] text-white border-none rounded-lg cursor-pointer"
+            >
+              {locale === "id" ? "Simpan" : "Save"}
+            </button>
+          </form>
+        )}
+      </LocaleConsumer>
     );
   }
 }

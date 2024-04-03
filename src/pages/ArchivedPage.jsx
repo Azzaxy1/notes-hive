@@ -1,102 +1,82 @@
-import React from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
-import PropTypes from "prop-types";
 
 import { deleteNote, getAllNotes, unarchiveNote } from "../utils/local-data";
 import NotesList from "../components/NotesList";
 import NotesSearch from "../components/NotesSearch";
+import LocaleContext from "../contexts/LocaleContext";
+import ThemeContext from "../contexts/ThemeContext";
 
-const WrapperArchivedPage = () => {
+const ArchivedPage = () => {
+  const [notes, setNotes] = useState([]);
+  const [keyword, setKeyword] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const { locale } = useContext(LocaleContext);
+  const { theme } = useContext(ThemeContext);
 
-  const title = searchParams.get("title");
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const { data } = await getAllNotes();
+  //     setNotes(data);
+  //   };
 
-  const changeSearchParams = (title) => {
-    setSearchParams({ title });
+  //   fetchData();
+  // });
+
+  useEffect(() => {
+    setNotes(getAllNotes());
+    const title = searchParams.get("title");
+    setKeyword(title || "");
+  }, [searchParams]);
+
+  const onDeleteHandler = (id) => {
+    const updatedNotes = deleteNote(id);
+    setNotes(updatedNotes);
+
+    toast.success("Data successfully deleted");
   };
 
+  const onSearchHandler = (keyword) => {
+    setKeyword(keyword);
+    setSearchParams({ title: keyword });
+  };
+
+  const onArchiveHandler = (id) => {
+    const updatedNotes = unarchiveNote(id);
+    setNotes(updatedNotes);
+
+    toast.success("Data successfully updated");
+  };
+
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(keyword.toLowerCase())
+  );
+
   return (
-    <ArchivedPage defaultKeyword={title} keywordChange={changeSearchParams} />
+    <section className="min-h-screen py-28">
+      <div
+        className={` px-8 md:p-5 m-auto border-dashed rounded-md ${
+          theme === "light" ? "border-darkMode" : "border-lightMode"
+        } border-3 w-[60%]`}
+      >
+        <h1
+          className={`pb-3 text-3xl text-center ${
+            theme === "light" ? "text-darkMode" : "text-lightMode"
+          }`}
+        >
+          {locale === "id" ? "Catatan Terarsip" : "Archived Notes"}
+        </h1>
+        <NotesSearch keyword={keyword} keywordChange={onSearchHandler} />
+        <NotesList
+          notes={filteredNotes}
+          onDelete={onDeleteHandler}
+          onArchive={onArchiveHandler}
+          isArchived={true}
+        />
+      </div>
+    </section>
   );
 };
 
-export class ArchivedPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      notes: getAllNotes(),
-      keyword: props.defaultKeyword || "",
-      archivedNotes: [],
-    };
-
-    this.onDeleteHandler = this.onDeleteHandler.bind(this);
-    this.onSearchHandler = this.onSearchHandler.bind(this);
-    this.onArchiveHandler = this.onArchiveHandler.bind(this);
-  }
-
-  onDeleteHandler(id) {
-    deleteNote(id);
-    const notes = this.state.notes.filter((note) => note.id !== id);
-
-    this.setState({ notes });
-
-    toast.success("Data successfully deleted");
-  }
-
-  onSearchHandler(keyword) {
-    this.setState(() => {
-      return {
-        keyword,
-      };
-    });
-
-    this.props.keywordChange(keyword);
-  }
-
-  onArchiveHandler(id) {
-    unarchiveNote(id);
-    this.setState((prevNote) => ({
-      notes: prevNote.notes.map((note) => {
-        if (note.id == id) {
-          return { ...note, archived: !note.archived };
-        }
-        return note;
-      }),
-    }));
-
-    toast.success("Data successfully updated");
-  }
-
-  render() {
-    const filterSearch = this.state.notes.filter((note) =>
-      note.title.toLowerCase().includes(this.state.keyword.toLowerCase())
-    );
-
-    return (
-      <main className="min-h-screen py-28">
-        <section className=" px-8 md:p-5 m-auto border-dashed rounded-md border-3 w-[60%]">
-          <h1 className="pb-3 text-3xl text-center">Archived Notes</h1>
-          <NotesSearch
-            keyword={this.state.keyword}
-            keywordChange={this.onSearchHandler}
-          />
-          <NotesList
-            notes={filterSearch}
-            onDelete={this.onDeleteHandler}
-            onArchive={this.onArchiveHandler}
-            isArchived={true}
-          />
-        </section>
-      </main>
-    );
-  }
-}
-
-ArchivedPage.propTypes = {
-  defaultKeyword: PropTypes.string,
-  keywordChange: PropTypes.func.isRequired,
-};
-
-export default WrapperArchivedPage;
+export default ArchivedPage;

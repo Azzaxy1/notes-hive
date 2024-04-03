@@ -1,4 +1,5 @@
-import React from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
 import NotesItems from "./NotesItems";
@@ -23,7 +24,7 @@ const NotesList = ({ notes, onDelete, onArchive, isArchived }) => {
             );
           })
         ) : (
-          <p className="text-center">
+          <p className="text-center pt-7">
             {isArchived ? "No archived records" : "No active records"}
           </p>
         )}
