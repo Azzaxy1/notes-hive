@@ -9,11 +9,16 @@ import DetailNotePages from "./pages/DetailNotePage";
 import AddNotePage from "./pages/AddNotePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import WrapperArchivedPage from "./pages/ArchivedPage.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeProvider } from "./contexts/ThemeContext.js";
 import { LocaleProvider } from "./contexts/LocaleContext.js";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import { getUserLogged, putAccessToken } from "./utils/network-data.js";
 
 function App() {
+  const [authedUser, setAuthedUser] = useState(null);
+  const [initializing, setInitializing] = useState(true);
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "light";
   });
@@ -33,36 +38,71 @@ function App() {
     setLocale(newLocale);
   };
 
-  // const [authedUser, setAuthedUser] = useState(null);
+  const onLoginSuccess = async ({ accessToken }) => {
+    putAccessToken(accessToken);
+    const { data } = await getUserLogged();
+    setAuthedUser(data);
+  };
 
-  // if (authedUser === null) {
-  //   return (
-  //     <main className="relative min-h-screen font-sans bg-primary">
-  //       <div className="absolute top-5 right-3 md:right-10 ">
-  //         <img
-  //           src={reactIcon}
-  //           alt="react icon"
-  //           width={200}
-  //           className="w-20 md:w-32"
-  //         />
-  //       </div>
-  //       <div className="absolute bottom-5 left-3 md:left-10 ">
-  //         <img
-  //           src={reactIcon}
-  //           alt="react icon"
-  //           width={200}
-  //           className="w-20 md:w-32"
-  //         />
-  //       </div>
-  //       <BrowserRouter>
-  //         <Routes>
-  //           <Route path="/*" element={<p>Halaman Login</p>} />
-  //           <Route path="/register" element={<p>Halaman Register</p>} />
-  //         </Routes>
-  //       </BrowserRouter>
-  //     </main>
-  //   );
-  // }
+  const onLogout = () => {
+    setAuthedUser(null);
+    putAccessToken("");
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data } = await getUserLogged();
+      setAuthedUser(data);
+      setInitializing(false);
+    };
+
+    fetchUser();
+  }, []);
+
+  if (initializing) {
+    return null;
+  }
+
+  if (authedUser === null) {
+    return (
+      <BrowserRouter>
+        <main className="relative min-h-screen font-sans bg-primary">
+          <div className="absolute top-5 right-3 md:right-10 ">
+            <img
+              src={reactIcon}
+              alt="react icon"
+              width={200}
+              className="w-20 md:w-32"
+            />
+          </div>
+          <div className="absolute bottom-5 left-3 md:left-10 ">
+            <img
+              src={reactIcon}
+              alt="react icon"
+              width={200}
+              className="w-20 md:w-32"
+            />
+          </div>
+          <Routes>
+            <Route
+              path="/*"
+              element={<LoginPage loginSuccess={onLoginSuccess} />}
+            />
+            <Route path="/register" element={<RegisterPage />} />
+          </Routes>
+        </main>
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              fontWeight: "bold",
+              fontFamily: "sans-serif",
+            },
+          }}
+        />
+      </BrowserRouter>
+    );
+  }
 
   return (
     <ThemeProvider value={{ theme, toggleTheme }}>
@@ -89,7 +129,7 @@ function App() {
                 className="w-20 md:w-32"
               />
             </div>
-            <Navbar />
+            <Navbar logout={onLogout} name={authedUser.name} />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/notes/:id" element={<DetailNotePages />} />

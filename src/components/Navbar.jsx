@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Moon, Sun } from "lucide-react";
+import { LogOut, Moon, Sun } from "lucide-react";
+import PropTypes from "prop-types";
 import ThemeContext from "../contexts/ThemeContext";
 import LocaleContext from "../contexts/LocaleContext";
 
-const Navbar = () => {
+const Navbar = ({ logout, name }) => {
   const { toggleTheme, theme } = useContext(ThemeContext);
   const { toggleLocale, locale } = useContext(LocaleContext);
 
@@ -45,7 +46,7 @@ const Navbar = () => {
           <li>
             <button
               onClick={toggleLocale}
-              className="text-base border-none cursor-pointer bg-secondary text-lightMode md:text-xl"
+              className="text-base border-none cursor-pointer bg-secondary text-lightMode md:text-xl hover:text-gray-400"
             >
               {locale === "id" ? "EN" : "ID"}
             </button>
@@ -53,16 +54,30 @@ const Navbar = () => {
           <li>
             <button onClick={toggleTheme} className="border-none bg-secondary ">
               {theme === "light" ? (
-                <Moon className="text-white cursor-pointer" />
+                <Moon className="text-white cursor-pointer hover:text-gray-400" />
               ) : (
-                <Sun className="text-white cursor-pointer" />
+                <Sun className="text-white cursor-pointer hover:text-gray-400 " />
               )}
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={logout}
+              className="flex items-center gap-3 text-base border-none cursor-pointer bg-secondary text-lightMode md:text-xl"
+            >
+              {name}
+              <LogOut className="text-white hover:text-gray-400" />
             </button>
           </li>
         </ul>
       </nav>
     </header>
   );
+};
+
+Navbar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default Navbar;
