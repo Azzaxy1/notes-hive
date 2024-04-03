@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { addNote } from "../utils/local-data";
+import { addNote } from "../utils/network-data";
 import NotesAdd from "../components/NotesAdd";
 import LocaleContext from "../contexts/LocaleContext";
 import ThemeContext from "../contexts/ThemeContext";
@@ -12,11 +12,10 @@ const AddNotePage = () => {
   const { theme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
-  const onAddNote = ({ title, body, archived }) => {
-    addNote({
+  const onAddNote = async ({ title, body }) => {
+    await addNote({
       title,
       body,
-      archived,
     });
     navigate("/");
   };

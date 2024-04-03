@@ -13,14 +13,12 @@ export class NotesAdd extends React.Component {
     this.state = {
       title: "",
       body: "",
-      archived: false,
       maxTitleLength: 50,
     };
 
     this.onTitleChangeHandler = this.onTitleChangeHandler.bind(this);
     this.onNotesInputHandler = this.onNotesInputHandler.bind(this);
     this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
-    this.onCheckedChangeHandler = this.onCheckedChangeHandler.bind(this);
   }
 
   onTitleChangeHandler(e) {
@@ -42,19 +40,12 @@ export class NotesAdd extends React.Component {
     });
   }
 
-  onCheckedChangeHandler(e) {
-    this.setState({
-      archived: e.target.checked,
-    });
-  }
-
   onSubmitEventHandler(e) {
     e.preventDefault();
-    const { title, body, archived } = this.state;
+    const { title, body } = this.state;
     this.props.addNotes({
       title,
       body,
-      archived,
     });
 
     toast.success("Data successfully added!");
@@ -94,16 +85,6 @@ export class NotesAdd extends React.Component {
               value={this.state.body}
               onInput={this.onNotesInputHandler}
             />
-            <div className="flex items-center gap-2 pl-2 mb-2">
-              <label className="text-lg">
-                {locale === "id" ? "Arsip" : "Archived"}
-              </label>
-              <input
-                type="checkbox"
-                checked={this.state.archived}
-                onChange={this.onCheckedChangeHandler}
-              />
-            </div>
             <button
               type="submit"
               className="py-2 text-lg bg-[#1a80af] hover:bg-[#378eb6] text-white border-none rounded-lg cursor-pointer"

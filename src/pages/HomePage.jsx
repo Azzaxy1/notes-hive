@@ -3,7 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
 
-import { archiveNote, deleteNote, getAllNotes } from "../utils/local-data";
+import { archiveNote, getAllNotes } from "../utils/local-data";
+import { getActiveNotes, deleteNote } from "../utils/network-data";
 import NotesList from "../components/NotesList";
 import NotesSearch from "../components/NotesSearch";
 import LocaleContext from "../contexts/LocaleContext";
@@ -17,14 +18,26 @@ const HomePage = () => {
   const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getActiveNotes();
+      setNotes(data);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     setNotes(getAllNotes());
     const title = searchParams.get("title");
     setKeyword(title || "");
   }, [searchParams]);
 
-  const onDeleteHandler = (id) => {
-    const updatedNotes = deleteNote(id);
-    setNotes(updatedNotes);
+  const onDeleteHandler = async (id) => {
+    await deleteNote(id);
+
+    // update data notes after delete
+    const { data } = await getActiveNotes();
+    setNotes(data);
 
     toast.success("Data successfully deleted");
   };
