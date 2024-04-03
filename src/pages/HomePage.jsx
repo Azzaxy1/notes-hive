@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
 
-import { getAllNotes } from "../utils/local-data";
 import { getActiveNotes, deleteNote, archiveNote } from "../utils/network-data";
 import NotesList from "../components/NotesList";
 import NotesSearch from "../components/NotesSearch";
@@ -11,10 +10,13 @@ import LocaleContext from "../contexts/LocaleContext";
 import ThemeContext from "../contexts/ThemeContext";
 
 const HomePage = () => {
-  const [notes, setNotes] = useState([]);
-  const [keyword, setKeyword] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [notes, setNotes] = useState([]);
+  const [keyword, setKeyword] = useState(() => {
+    const title = searchParams.get("title");
+    return title || "";
+  });
+  const [isLoading, setIsLoading] = useState(true);
   const { locale } = useContext(LocaleContext);
   const { theme } = useContext(ThemeContext);
 
@@ -30,16 +32,9 @@ const HomePage = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    setNotes(getAllNotes());
-    const title = searchParams.get("title");
-    setKeyword(title || "");
-  }, [searchParams]);
-
   const onDeleteHandler = async (id) => {
     await deleteNote(id);
 
-    // update data notes after delete
     const { data } = await getActiveNotes();
     setNotes(data);
 
