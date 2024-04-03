@@ -1,17 +1,37 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getNote } from "../utils/local-data";
+import { getNote } from "../utils/network-data";
 import { showFormattedDate } from "../utils/index";
 import LocaleContext from "../contexts/LocaleContext";
 import ThemeContext from "../contexts/ThemeContext";
 
 const DetailNotePages = () => {
+  const [note, setNote] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { id } = useParams();
   const { locale } = useContext(LocaleContext);
   const { theme } = useContext(ThemeContext);
 
-  const { id } = useParams();
-  const note = getNote(id);
+  useEffect(() => {
+    const fetchData = async () => {
+      const { error, data } = await getNote(id);
+
+      if (!error) {
+        setNote(data);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p>Data sedang dimuat...</p>
+      </div>
+    );
+  }
 
   return (
     <main

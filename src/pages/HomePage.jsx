@@ -13,14 +13,18 @@ import ThemeContext from "../contexts/ThemeContext";
 const HomePage = () => {
   const [notes, setNotes] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const { locale } = useContext(LocaleContext);
   const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getActiveNotes();
-      setNotes(data);
+      const { error, data } = await getActiveNotes();
+      if (!error) {
+        setNotes(data);
+      }
+      setIsLoading(false);
     };
 
     fetchData();
@@ -59,6 +63,14 @@ const HomePage = () => {
   const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(keyword.toLowerCase())
   );
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p>Data sedang dimuat...</p>
+      </div>
+    );
+  }
 
   return (
     <section className="min-h-screen py-28">
