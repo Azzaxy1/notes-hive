@@ -2,7 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
 
-import { deleteNote, getAllNotes, unarchiveNote } from "../utils/local-data";
+import { getAllNotes } from "../utils/local-data";
+import {
+  deleteNote,
+  unarchiveNote,
+  getArchivedNotes,
+} from "../utils/network-data";
 import NotesList from "../components/NotesList";
 import NotesSearch from "../components/NotesSearch";
 import LocaleContext from "../contexts/LocaleContext";
@@ -15,14 +20,14 @@ const ArchivedPage = () => {
   const { locale } = useContext(LocaleContext);
   const { theme } = useContext(ThemeContext);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const { data } = await getAllNotes();
-  //     setNotes(data);
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await getArchivedNotes();
+      setNotes(data);
+    };
 
-  //   fetchData();
-  // });
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setNotes(getAllNotes());
@@ -30,9 +35,11 @@ const ArchivedPage = () => {
     setKeyword(title || "");
   }, [searchParams]);
 
-  const onDeleteHandler = (id) => {
-    const updatedNotes = deleteNote(id);
-    setNotes(updatedNotes);
+  const onDeleteHandler = async (id) => {
+    await deleteNote(id);
+
+    const { data } = await getArchivedNotes();
+    setNotes(data);
 
     toast.success("Data successfully deleted");
   };
@@ -42,9 +49,11 @@ const ArchivedPage = () => {
     setSearchParams({ title: keyword });
   };
 
-  const onArchiveHandler = (id) => {
-    const updatedNotes = unarchiveNote(id);
-    setNotes(updatedNotes);
+  const onUnArchiveHandler = async (id) => {
+    await unarchiveNote(id);
+
+    const { data } = await getArchivedNotes();
+    setNotes(data);
 
     toast.success("Data successfully updated");
   };
@@ -71,7 +80,7 @@ const ArchivedPage = () => {
         <NotesList
           notes={filteredNotes}
           onDelete={onDeleteHandler}
-          onArchive={onArchiveHandler}
+          onArchive={onUnArchiveHandler}
           isArchived={true}
         />
       </div>

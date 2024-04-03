@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
 
-import { archiveNote, getAllNotes } from "../utils/local-data";
-import { getActiveNotes, deleteNote } from "../utils/network-data";
+import { getAllNotes } from "../utils/local-data";
+import { getActiveNotes, deleteNote, archiveNote } from "../utils/network-data";
 import NotesList from "../components/NotesList";
 import NotesSearch from "../components/NotesSearch";
 import LocaleContext from "../contexts/LocaleContext";
@@ -47,9 +47,11 @@ const HomePage = () => {
     setSearchParams({ title: keyword });
   };
 
-  const onArchiveHandler = (id) => {
-    const updatedNotes = archiveNote(id);
-    setNotes(updatedNotes);
+  const onArchiveHandler = async (id) => {
+    await archiveNote(id);
+
+    const { data } = await getActiveNotes();
+    setNotes(data);
 
     toast.success("Data successfully updated");
   };
