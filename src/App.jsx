@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 import reactIcon from "./assets/react.png";
@@ -9,7 +10,6 @@ import DetailNotePages from "./pages/DetailNotePage";
 import AddNotePage from "./pages/AddNotePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import WrapperArchivedPage from "./pages/ArchivedPage.jsx";
-import { useEffect, useState } from "react";
 import { ThemeProvider } from "./contexts/ThemeContext.js";
 import { LocaleProvider } from "./contexts/LocaleContext.js";
 import RegisterPage from "./pages/RegisterPage.jsx";

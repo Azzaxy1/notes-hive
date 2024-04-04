@@ -23,8 +23,10 @@ const Footer = () => {
         <Link
           to="https://github.com/Azzaxy1"
           className={`font-medium ${
-            theme === "light" ? "text-darkMode" : "text-lightMode"
-          } hover:text-slate-300`}
+            theme === "light"
+              ? "text-darkMode hover:text-primary"
+              : "text-lightMode hover:text-primary"
+          }`}
         >
           Abdurrohman Azis
         </Link>

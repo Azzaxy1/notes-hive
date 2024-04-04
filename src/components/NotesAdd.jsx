@@ -52,6 +52,8 @@ export class NotesAdd extends React.Component {
   }
 
   render() {
+    // TODO : mengganti input deskripsi sesuai warna
+
     return (
       <LocaleConsumer>
         {({ locale }) => (
@@ -75,16 +77,14 @@ export class NotesAdd extends React.Component {
               onChange={this.onTitleChangeHandler}
               required
             />
-            <div
-              className={`h-40 px-2 py-2 mb-3 overflow-auto text-base  rounded-sm ${
-                this.context === "light"
-                  ? "text-lightMode bg-red-100 border-lightMode"
-                  : "text-darkMode bg-lightMode border-darkMode"
-              } placeholder:text-black outline-secondary`}
-              contentEditable
-              value={this.state.body}
-              onInput={this.onNotesInputHandler}
-            />
+            <div className="mb-3 border-2 border-solid bg-lightMode">
+              <div
+                className={`h-40 px-2 py-2 overflow-auto text-base  rounded-sm placeholder:text-black outline-none`}
+                contentEditable
+                value={this.state.body}
+                onInput={this.onNotesInputHandler}
+              />
+            </div>
             <button
               type="submit"
               className="py-2 text-lg bg-[#1a80af] hover:bg-[#378eb6] text-white border-none rounded-lg cursor-pointer"

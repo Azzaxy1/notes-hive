@@ -10,8 +10,8 @@ const Navbar = ({ logout, name }) => {
   const { toggleLocale, locale } = useContext(LocaleContext);
 
   return (
-    <header className="fixed top-0 left-0 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] right-0 z-50 flex items-center justify-between flex-col md:flex-row px-20 py-5 font-sans bg-secondary">
-      <h1 className="text-3xl md:text-4xl">
+    <header className="fixed top-0 left-0 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] right-0 z-50 flex items-center justify-between flex-col md:flex-row px-20 py-4 font-sans bg-secondary">
+      <h1 className="text-2xl md:text-3xl">
         <Link to="/" className="text-white no-underline">
           {locale === "id" ? "Catatan Pribadi" : "Personal Notes"}
         </Link>
@@ -46,27 +46,30 @@ const Navbar = ({ logout, name }) => {
           <li>
             <button
               onClick={toggleLocale}
-              className="text-base border-none cursor-pointer bg-secondary text-lightMode md:text-xl hover:text-gray-400"
+              className="px-1 text-base border-solid rounded-md cursor-pointer border-lightMode bg-secondary text-lightMode md:text-xl hover:bg-primary"
             >
               {locale === "id" ? "EN" : "ID"}
             </button>
           </li>
           <li>
-            <button onClick={toggleTheme} className="border-none bg-secondary ">
+            <button
+              onClick={toggleTheme}
+              className="p-[1px] border-lightMode border-solid border-[2px] rounded-md bg-secondary hover:bg-primary"
+            >
               {theme === "light" ? (
-                <Moon className="text-white cursor-pointer hover:text-gray-400" />
+                <Moon className="text-white cursor-pointer hover:bg-primary" />
               ) : (
-                <Sun className="text-white cursor-pointer hover:text-gray-400 " />
+                <Sun className="text-white cursor-pointer hover:bg-primary " />
               )}
             </button>
           </li>
           <li>
             <button
               onClick={logout}
-              className="flex items-center gap-3 text-base border-none cursor-pointer bg-secondary text-lightMode md:text-xl"
+              className="flex items-center gap-1 p-[2px] text-base border-solid rounded-md cursor-pointer border-lightMode hover:bg-primary bg-secondary text-lightMode md:text-xl"
             >
               {name}
-              <LogOut className="text-white hover:text-gray-400" />
+              <LogOut className="text-white hover:bg-primary" />
             </button>
           </li>
         </ul>
