@@ -13,8 +13,8 @@ const LoginInput = ({ login }) => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col">
-      <h1 className="mb-4 text-3xl font-semibold text-center text-lightMode">
-        Login
+      <h1 className="mb-4 text-2xl font-semibold text-lightMode">
+        Login to use app, please.
       </h1>
       <input
         className="px-2 py-3 mb-3 text-base border-none rounded-sm outline-secondary"

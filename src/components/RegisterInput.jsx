@@ -21,8 +21,8 @@ const RegisterInput = ({ register }) => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col">
-      <h1 className="mb-4 text-3xl font-semibold text-center text-lightMode">
-        Register
+      <h1 className="mb-4 text-2xl font-semibold text-lightMode">
+        Fill the form to register account.
       </h1>
       <input
         className="px-2 py-3 mb-3 text-base border-none rounded-sm outline-secondary"

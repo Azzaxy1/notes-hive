@@ -22,7 +22,7 @@ const LoginPage = ({ loginSuccess }) => {
           <p className="pt-3">
             Don&apos;t have an account?{" "}
             <Link to="/register" className="text-primary">
-              Register
+              Register here
             </Link>
           </p>
         </article>

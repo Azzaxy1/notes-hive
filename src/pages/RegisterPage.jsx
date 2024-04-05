@@ -23,7 +23,7 @@ const RegisterPage = () => {
           <p className="pt-3">
             Already have an account?{" "}
             <Link to="/" className="text-primary">
-              Login
+              Login here
             </Link>
           </p>
         </article>

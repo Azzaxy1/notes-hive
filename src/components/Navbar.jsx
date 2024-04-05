@@ -42,7 +42,6 @@ const Navbar = ({ logout, name }) => {
               {locale === "id" ? "Buat" : "Create"}
             </NavLink>
           </li>
-
           <li>
             <button
               onClick={toggleLocale}
@@ -68,8 +67,8 @@ const Navbar = ({ logout, name }) => {
               onClick={logout}
               className="flex items-center gap-1 p-[2px] text-base border-solid rounded-md cursor-pointer border-lightMode hover:bg-primary bg-secondary text-lightMode md:text-xl"
             >
-              {name}
               <LogOut className="text-white hover:bg-primary" />
+              {name}
             </button>
           </li>
         </ul>

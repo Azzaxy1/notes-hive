@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import { Archive } from "lucide-react";
 
 const ArchiveButton = ({ id, onArchive }) => {
