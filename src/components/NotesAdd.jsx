@@ -52,8 +52,6 @@ export class NotesAdd extends React.Component {
   }
 
   render() {
-    // TODO : mengganti input deskripsi sesuai warna
-
     return (
       <LocaleConsumer>
         {({ locale }) => (

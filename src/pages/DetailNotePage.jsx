@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getNote } from "../utils/network-data";

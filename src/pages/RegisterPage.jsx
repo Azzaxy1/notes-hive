@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { register } from "../utils/network-data";
 import RegisterInput from "../components/RegisterInput";

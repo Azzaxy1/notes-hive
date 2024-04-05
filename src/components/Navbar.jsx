@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { LogOut, Moon, Sun } from "lucide-react";
 import PropTypes from "prop-types";
