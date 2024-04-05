@@ -77,7 +77,7 @@ export class NotesAdd extends React.Component {
             />
             <div className="mb-3 border-2 border-solid bg-lightMode">
               <div
-                className={`h-40 px-2 py-2 overflow-auto text-base  rounded-sm placeholder:text-black outline-none`}
+                className={`h-40 px-2 py-2 overflow-auto text-base text-darkMode  rounded-sm placeholder:text-black outline-none`}
                 contentEditable
                 value={this.state.body}
                 onInput={this.onNotesInputHandler}
