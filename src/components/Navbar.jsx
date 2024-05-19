@@ -13,7 +13,7 @@ const Navbar = ({ logout, name }) => {
     <header className="fixed top-0 left-0 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] right-0 z-50 flex items-center justify-between flex-col md:flex-row px-20 py-4 font-sans bg-secondary">
       <h1 className="text-2xl md:text-3xl">
         <Link to="/" className="text-white no-underline">
-          {locale === "id" ? "Catatan Pribadi" : "Personal Notes"}
+          NoteHive
         </Link>
       </h1>
       <nav>
